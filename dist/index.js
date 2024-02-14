@@ -41,6 +41,7 @@ var __async = (__this, __arguments, generator) => {
 var src_exports = {};
 __export(src_exports, {
   useClickOutside: () => useClickOutside_default,
+  useEffectExceptFirstRender: () => useEffectExceptFirstRender_default,
   useFetch: () => useFetch_default
 });
 module.exports = __toCommonJS(src_exports);
@@ -100,8 +101,23 @@ var useClickOutside = (callbackFun) => {
   return elementRef;
 };
 var useClickOutside_default = useClickOutside;
+
+// src/hooks/useEffectExceptFirstRender.tsx
+var import_react3 = require("react");
+var useEffectExceptFirstRender = (func, deps) => {
+  const didMount = (0, import_react3.useRef)(false);
+  (0, import_react3.useEffect)(() => {
+    if (didMount.current) {
+      func();
+    } else {
+      didMount.current = true;
+    }
+  }, [...deps]);
+};
+var useEffectExceptFirstRender_default = useEffectExceptFirstRender;
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
   useClickOutside,
+  useEffectExceptFirstRender,
   useFetch
 });

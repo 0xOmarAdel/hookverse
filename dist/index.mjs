@@ -74,7 +74,22 @@ var useClickOutside = (callbackFun) => {
   return elementRef;
 };
 var useClickOutside_default = useClickOutside;
+
+// src/hooks/useEffectExceptFirstRender.tsx
+import { useEffect as useEffect2, useRef as useRef2 } from "react";
+var useEffectExceptFirstRender = (func, deps) => {
+  const didMount = useRef2(false);
+  useEffect2(() => {
+    if (didMount.current) {
+      func();
+    } else {
+      didMount.current = true;
+    }
+  }, [...deps]);
+};
+var useEffectExceptFirstRender_default = useEffectExceptFirstRender;
 export {
   useClickOutside_default as useClickOutside,
+  useEffectExceptFirstRender_default as useEffectExceptFirstRender,
   useFetch_default as useFetch
 };

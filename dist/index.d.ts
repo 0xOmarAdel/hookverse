@@ -1,4 +1,4 @@
-import { RefObject } from 'react';
+import { RefObject, DependencyList } from 'react';
 
 type RequestConfig = {
     url: string;
@@ -16,4 +16,7 @@ declare const useFetch: () => {
 type ClickOutsideCallback = () => void;
 declare const useClickOutside: (callbackFun: ClickOutsideCallback) => RefObject<HTMLElement | null>;
 
-export { type RequestConfig, useClickOutside, useFetch };
+type EffectFunction = () => void;
+declare const useEffectExceptFirstRender: (func: EffectFunction, deps: DependencyList) => void;
+
+export { useClickOutside, useEffectExceptFirstRender, useFetch };
