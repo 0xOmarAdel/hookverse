@@ -1,6 +1,6 @@
 {
   "name": "hookverse",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -12,6 +12,10 @@
   "keywords": [],
   "author": "",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/0xOmarAdel/hookverse"
+  },
   "devDependencies": {
     "@types/node": "^20.11.17",
     "@types/react": "^18.2.55",
