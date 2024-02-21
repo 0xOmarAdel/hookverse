@@ -1,7 +1,9 @@
 "use strict";
+var __create = Object.create;
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __export = (target, all) => {
   for (var name in all)
@@ -15,6 +17,14 @@ var __copyProps = (to, from, except, desc) => {
   }
   return to;
 };
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 var __async = (__this, __arguments, generator) => {
   return new Promise((resolve, reject) => {
@@ -40,6 +50,7 @@ var __async = (__this, __arguments, generator) => {
 // src/index.ts
 var src_exports = {};
 __export(src_exports, {
+  useAxios: () => useAxios_default,
   useClickOutside: () => useClickOutside_default,
   useEffectExceptFirstRender: () => useEffectExceptFirstRender_default,
   useFetch: () => useFetch_default
@@ -115,8 +126,47 @@ var useEffectExceptFirstRender = (func, deps) => {
   }, [...deps]);
 };
 var useEffectExceptFirstRender_default = useEffectExceptFirstRender;
+
+// src/hooks/useAxios.tsx
+var import_react4 = require("react");
+var import_axios = __toESM(require("axios"));
+var import_query_string = __toESM(require("query-string"));
+var useAxios = ({
+  url,
+  method = "GET",
+  headers,
+  body,
+  searchParams
+}) => {
+  const [data, setData] = (0, import_react4.useState)(null);
+  const [loading, setLoading] = (0, import_react4.useState)(false);
+  const [error, setError] = (0, import_react4.useState)(false);
+  const memoizedSearchParams = (0, import_react4.useMemo)(() => {
+    return import_query_string.default.parse(searchParams || "");
+  }, [searchParams]);
+  const runAxios = (0, import_react4.useCallback)(() => __async(void 0, null, function* () {
+    try {
+      setLoading(true);
+      const response = yield (0, import_axios.default)({
+        method,
+        url,
+        data: body,
+        params: memoizedSearchParams,
+        headers
+      });
+      setData(response.data);
+    } catch (error2) {
+      setError(!!error2);
+    } finally {
+      setLoading(false);
+    }
+  }), [method, url, headers, body, memoizedSearchParams]);
+  return { runAxios, data, loading, error };
+};
+var useAxios_default = useAxios;
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
+  useAxios,
   useClickOutside,
   useEffectExceptFirstRender,
   useFetch

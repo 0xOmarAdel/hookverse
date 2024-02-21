@@ -1,4 +1,5 @@
 import { RefObject, DependencyList } from 'react';
+import { AxiosRequestConfig } from 'axios';
 
 type RequestConfig = {
     url: string;
@@ -19,4 +20,19 @@ declare const useClickOutside: (callbackFun: ClickOutsideCallback) => RefObject<
 type EffectFunction = () => void;
 declare const useEffectExceptFirstRender: (func: EffectFunction, deps: DependencyList) => void;
 
-export { useClickOutside, useEffectExceptFirstRender, useFetch };
+type UseAxiosProps = {
+    url: string;
+    method?: string;
+    headers?: AxiosRequestConfig["headers"];
+    body?: any;
+    searchParams?: string | null;
+};
+
+declare const useAxios: ({ url, method, headers, body, searchParams, }: UseAxiosProps) => {
+    runAxios: () => Promise<void>;
+    data: any;
+    loading: boolean;
+    error: boolean;
+};
+
+export { useAxios, useClickOutside, useEffectExceptFirstRender, useFetch };

@@ -88,7 +88,46 @@ var useEffectExceptFirstRender = (func, deps) => {
   }, [...deps]);
 };
 var useEffectExceptFirstRender_default = useEffectExceptFirstRender;
+
+// src/hooks/useAxios.tsx
+import { useState as useState2, useCallback as useCallback2, useMemo } from "react";
+import axios from "axios";
+import queryString from "query-string";
+var useAxios = ({
+  url,
+  method = "GET",
+  headers,
+  body,
+  searchParams
+}) => {
+  const [data, setData] = useState2(null);
+  const [loading, setLoading] = useState2(false);
+  const [error, setError] = useState2(false);
+  const memoizedSearchParams = useMemo(() => {
+    return queryString.parse(searchParams || "");
+  }, [searchParams]);
+  const runAxios = useCallback2(() => __async(void 0, null, function* () {
+    try {
+      setLoading(true);
+      const response = yield axios({
+        method,
+        url,
+        data: body,
+        params: memoizedSearchParams,
+        headers
+      });
+      setData(response.data);
+    } catch (error2) {
+      setError(!!error2);
+    } finally {
+      setLoading(false);
+    }
+  }), [method, url, headers, body, memoizedSearchParams]);
+  return { runAxios, data, loading, error };
+};
+var useAxios_default = useAxios;
 export {
+  useAxios_default as useAxios,
   useClickOutside_default as useClickOutside,
   useEffectExceptFirstRender_default as useEffectExceptFirstRender,
   useFetch_default as useFetch
