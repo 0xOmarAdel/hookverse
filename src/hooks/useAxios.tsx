@@ -11,7 +11,7 @@ const useAxios = ({
   searchParams,
 }: UseAxiosProps) => {
   const [data, setData] = useState<any | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
   const memoizedSearchParams = useMemo(() => {

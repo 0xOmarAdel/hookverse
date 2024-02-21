@@ -101,7 +101,7 @@ var useAxios = ({
   searchParams
 }) => {
   const [data, setData] = useState2(null);
-  const [loading, setLoading] = useState2(false);
+  const [loading, setLoading] = useState2(true);
   const [error, setError] = useState2(false);
   const memoizedSearchParams = useMemo(() => {
     return queryString.parse(searchParams || "");

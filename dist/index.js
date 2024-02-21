@@ -139,7 +139,7 @@ var useAxios = ({
   searchParams
 }) => {
   const [data, setData] = (0, import_react4.useState)(null);
-  const [loading, setLoading] = (0, import_react4.useState)(false);
+  const [loading, setLoading] = (0, import_react4.useState)(true);
   const [error, setError] = (0, import_react4.useState)(false);
   const memoizedSearchParams = (0, import_react4.useMemo)(() => {
     return import_query_string.default.parse(searchParams || "");
