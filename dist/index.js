@@ -53,7 +53,8 @@ __export(src_exports, {
   useAxios: () => useAxios_default,
   useClickOutside: () => useClickOutside_default,
   useEffectExceptFirstRender: () => useEffectExceptFirstRender_default,
-  useFetch: () => useFetch_default
+  useFetch: () => useFetch_default,
+  useScrollBlock: () => useScrollBlock_default
 });
 module.exports = __toCommonJS(src_exports);
 
@@ -164,10 +165,51 @@ var useAxios = ({
   return { runAxios, data, loading, error };
 };
 var useAxios_default = useAxios;
+
+// src/hooks/useScrollBlock.tsx
+var import_react5 = require("react");
+var useScrollBlock = () => {
+  const scrollBlocked = (0, import_react5.useRef)(false);
+  const blockScroll = () => {
+    if (typeof document === "undefined")
+      return;
+    const html = document.documentElement;
+    const { body } = document;
+    if (!(body == null ? void 0 : body.style) || scrollBlocked.current)
+      return;
+    const scrollBarWidth = window.innerWidth - html.clientWidth;
+    const bodyPaddingRight = parseInt(
+      window.getComputedStyle(body).getPropertyValue("padding-right")
+    ) || 0;
+    html.style.position = "relative";
+    html.style.overflow = "hidden";
+    body.style.position = "relative";
+    body.style.overflow = "hidden";
+    body.style.paddingRight = `${bodyPaddingRight + scrollBarWidth}px`;
+    scrollBlocked.current = true;
+  };
+  const allowScroll = () => {
+    if (typeof document === "undefined")
+      return;
+    const html = document.documentElement;
+    const { body } = document;
+    if (!(body == null ? void 0 : body.style) || !scrollBlocked.current)
+      return;
+    html.style.position = "";
+    html.style.overflow = "";
+    body.style.position = "";
+    body.style.overflow = "";
+    body.style.paddingRight = "";
+    scrollBlocked.current = false;
+  };
+  return [blockScroll, allowScroll];
+};
+var useScrollBlock_default = useScrollBlock;
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
   useAxios,
   useClickOutside,
   useEffectExceptFirstRender,
-  useFetch
+  useFetch,
+  useScrollBlock
 });

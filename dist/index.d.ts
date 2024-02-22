@@ -35,4 +35,6 @@ declare const useAxios: ({ url, method, headers, body, searchParams, }: UseAxios
     error: boolean;
 };
 
-export { useAxios, useClickOutside, useEffectExceptFirstRender, useFetch };
+declare const useScrollBlock: () => (() => void)[];
+
+export { useAxios, useClickOutside, useEffectExceptFirstRender, useFetch, useScrollBlock };
