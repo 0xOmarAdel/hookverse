@@ -1,11 +1,12 @@
-import { useEffect, useRef, RefObject } from "react";
+import { useEffect, useRef } from "react";
 
 type ClickOutsideCallback = () => void;
+type SafeRefObject<T> = { readonly current: T };
 
-const useClickOutside = (
+const useClickOutside = <T extends HTMLElement>(
   callbackFun: ClickOutsideCallback
-): RefObject<HTMLElement | null> => {
-  const elementRef = useRef<HTMLElement | null>(null);
+): SafeRefObject<T> => {
+  const elementRef = useRef<T>(HTMLElement as unknown as T);
   const callBackFunRef = useRef<ClickOutsideCallback | null>(null);
   callBackFunRef.current = callbackFun;
 

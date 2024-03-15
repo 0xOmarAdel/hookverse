@@ -1,4 +1,4 @@
-import { RefObject, DependencyList } from 'react';
+import { DependencyList } from 'react';
 import { AxiosRequestConfig } from 'axios';
 
 type RequestConfig = {
@@ -15,7 +15,10 @@ declare const useFetch: () => {
 };
 
 type ClickOutsideCallback = () => void;
-declare const useClickOutside: (callbackFun: ClickOutsideCallback) => RefObject<HTMLElement | null>;
+type SafeRefObject<T> = {
+    readonly current: T;
+};
+declare const useClickOutside: <T extends HTMLElement>(callbackFun: ClickOutsideCallback) => SafeRefObject<T>;
 
 type EffectFunction = () => void;
 declare const useEffectExceptFirstRender: (func: EffectFunction, deps: DependencyList) => void;
