@@ -96,7 +96,7 @@ var useFetch_default = useFetch;
 // src/hooks/useClickOutside.tsx
 var import_react2 = require("react");
 var useClickOutside = (callbackFun) => {
-  const elementRef = (0, import_react2.useRef)(null);
+  const elementRef = (0, import_react2.useRef)(HTMLElement);
   const callBackFunRef = (0, import_react2.useRef)(null);
   callBackFunRef.current = callbackFun;
   (0, import_react2.useEffect)(() => {
