@@ -102,6 +102,7 @@ var useAxios = ({
 }) => {
   const [data, setData] = useState2(null);
   const [loading, setLoading] = useState2(true);
+  const [isExecuting, setIsExecuting] = useState2(false);
   const [error, setError] = useState2(false);
   const memoizedSearchParams = useMemo(() => {
     return queryString.parse(searchParams || "");
@@ -109,6 +110,7 @@ var useAxios = ({
   const runAxios = useCallback2(() => __async(void 0, null, function* () {
     try {
       setLoading(true);
+      setIsExecuting(true);
       const response = yield axios({
         method,
         url,
@@ -121,9 +123,10 @@ var useAxios = ({
       setError(!!error2);
     } finally {
       setLoading(false);
+      setIsExecuting(false);
     }
   }), [method, url, headers, body, memoizedSearchParams]);
-  return { runAxios, data, loading, error };
+  return { runAxios, data, loading, isExecuting, error };
 };
 var useAxios_default = useAxios;
 

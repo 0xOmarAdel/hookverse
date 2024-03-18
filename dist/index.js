@@ -141,6 +141,7 @@ var useAxios = ({
 }) => {
   const [data, setData] = (0, import_react4.useState)(null);
   const [loading, setLoading] = (0, import_react4.useState)(true);
+  const [isExecuting, setIsExecuting] = (0, import_react4.useState)(false);
   const [error, setError] = (0, import_react4.useState)(false);
   const memoizedSearchParams = (0, import_react4.useMemo)(() => {
     return import_query_string.default.parse(searchParams || "");
@@ -148,6 +149,7 @@ var useAxios = ({
   const runAxios = (0, import_react4.useCallback)(() => __async(void 0, null, function* () {
     try {
       setLoading(true);
+      setIsExecuting(true);
       const response = yield (0, import_axios.default)({
         method,
         url,
@@ -160,9 +162,10 @@ var useAxios = ({
       setError(!!error2);
     } finally {
       setLoading(false);
+      setIsExecuting(false);
     }
   }), [method, url, headers, body, memoizedSearchParams]);
-  return { runAxios, data, loading, error };
+  return { runAxios, data, loading, isExecuting, error };
 };
 var useAxios_default = useAxios;
 

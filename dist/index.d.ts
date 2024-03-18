@@ -35,6 +35,7 @@ declare const useAxios: ({ url, method, headers, body, searchParams, }: UseAxios
     runAxios: () => Promise<void>;
     data: any;
     loading: boolean;
+    isExecuting: boolean;
     error: boolean;
 };
 
